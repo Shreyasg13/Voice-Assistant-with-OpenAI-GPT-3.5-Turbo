@@ -1,4 +1,5 @@
-from ..app import assistant
+from app import assistant
+
 
 from app import assistant  # Assuming the assistant module is inside an app directory
 
