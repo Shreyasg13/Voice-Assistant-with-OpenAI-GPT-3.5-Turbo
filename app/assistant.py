@@ -6,14 +6,15 @@ class VoiceAssistant:
     def __init__(self, speech, gpt3_api):
         self.speech = speech
         self.gpt3_api = gpt3_api
-        self.INTERRUPTED = False
-        self.ACTIVATION_KEYWORDS = ["hey ai", "hey assistant", "hey jarvis", "hey sakura", "Hey Snehal", "Hey Baby", "what's up", "what's good"]
+        self.ACTIVATION_KEYWORDS = ["Hey GooRoo","hey ai", "hey assistant", "hey jarvis", "hey computer","what's up","what's good","bazinga","Hey Sakura"]
+
 
     def handle_stop_keyword(self):
-        self.INTERRUPTED = True
+        self.speech.stop_speech()
         time.sleep(2)
-        self.INTERRUPTED = False
+        self.speech.INTERRUPTED = False
         self.speech.text_to_speech("Speech stopped. How can I assist you?")
+
 
     def continuously_listen(self):
         r = sr.Recognizer()
@@ -24,7 +25,7 @@ class VoiceAssistant:
                     if audio is not None:
                         text = r.recognize_google(audio).lower()
                         if any(keyword in text for keyword in self.ACTIVATION_KEYWORDS):
-                            self.speech.text_to_speech("Yeah, tell me.")
+                            self.speech.text_to_speech("Yeah, How can I assist you?.")
                             self.listen_and_respond()
                         elif "hey stop" in text or "stop" in text:
                             self.handle_stop_keyword()

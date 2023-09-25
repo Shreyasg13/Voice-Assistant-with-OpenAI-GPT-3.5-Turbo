@@ -7,7 +7,9 @@ app = Flask(__name__)
 
 # Create instances of your classes
 speech = Speech()
-gpt3_api = GPT3API()
+gpt3_api = GPT3API(config_file_path="config.yaml")
+
+
 assistant = VoiceAssistant(speech, gpt3_api)
 
 @app.route('/')
