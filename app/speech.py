@@ -15,9 +15,11 @@ class Speech:
         sentences = re.split(r'(?<=[.!?])\s', text)
         for sentence in sentences:
             if self.INTERRUPTED:
+                self.engine.stop()  # Immediately stop the current speech.
                 break
             self.engine.say(sentence)
             self.engine.runAndWait()
-            
+
+        self.INTERRUPTED = False    
     def stop_speech(self):
         self.INTERRUPTED = True

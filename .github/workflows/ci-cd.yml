@@ -23,8 +23,8 @@ jobs:
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV  # This step sets the PYTHONPATH
   
-    # - name: Run tests
-    #   run: pytest
+    - name: Run tests
+      run: pytest
       
   deploy:
     needs: test

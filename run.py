@@ -1,12 +1,16 @@
 import threading
-from app import app, assistant
+from app import app
+from app.assistant import VoiceAssistant
+from app.speech import Speech
+from app.gpt3_api import GPT3API
+
+speech_instance = Speech()
+gpt3_instance = GPT3API(config_file_path="config.yaml")
+assistant_instance = VoiceAssistant(speech_instance, gpt3_instance)
 
 def start_flask_app():
     app.run(port=8080, debug=True)
 
 if __name__ == '__main__':
-    # Start a thread to continuously listen for the activation keyword
-    threading.Thread(target=assistant.continuously_listen, daemon=True).start()
-
-    # Run the Flask app
+    threading.Thread(target=assistant_instance.continuously_listen, daemon=True).start()
     start_flask_app()
